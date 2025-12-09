@@ -26,7 +26,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/AppDB";
+const MONGO_URI = process.env.MONGO_URI || "mongodb://mongodb:27017/AppDB";
 mongoose.connect(MONGO_URI);
 const userSchema = new mongoose.Schema({
     firstName: String,
