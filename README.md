@@ -85,7 +85,7 @@ The CD process automatically deploys the new image version to the live environme
 
 🧪 Local Testing Commands (Docker Compose)
 
-These commands are used to quickly build, run, and manage your application stack (Node.js app + MongoDB) on your local machine using Docker Compose (Project 2).
+These commands are used to quickly build, run, and manage your application stack (Node.js app + MongoDB) on your local machine using Docker Compose.
 Command	Purpose
 1. Build & Run	Builds the Docker image and starts both the app and mongodb services in the background. Use this first.
 
@@ -110,7 +110,7 @@ Command	Purpose
 
 🚀 Production Deployment Commands (CI/CD)
 
-The production deployment is primarily automated via GitHub Actions (Project 3 & 4), but you may need to execute the Terraform commands manually to set up the infrastructure initially.
+The production deployment is primarily automated via GitHub Actions, but you may need to execute the Terraform commands manually to set up the infrastructure initially.
 A. Infrastructure Setup (Terraform IaC)
 
 These commands provision your GKE Cluster and other cloud resources on GCP. These are run once (or whenever infrastructure changes).
