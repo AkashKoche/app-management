@@ -88,15 +88,26 @@ The CD process automatically deploys the new image version to the live environme
 These commands are used to quickly build, run, and manage your application stack (Node.js app + MongoDB) on your local machine using Docker Compose (Project 2).
 Command	Purpose
 1. Build & Run	Builds the Docker image and starts both the app and mongodb services in the background. Use this first.
-docker compose up --build -d	
+
+        docker compose up --build -d
+   
 2. Check Status	Shows the current state of your running containers.
-docker compose ps	
+
+        docker compose ps	
+
 3. View Logs	View the streaming output from your application container (useful for debugging startup issues).
-docker compose logs -f app	
+
+        docker compose logs -f app	
+
 4. Stop Services	Stops the containers but preserves the data volume.
-docker compose stop	
+
+        docker compose stop	
+
 5. Clean Up	Stops and removes all containers, networks, and persistent volumes (including MongoDB data). Use with caution.
-docker compose down -v	
+
+        docker compose down -v	
+
+
 🚀 Production Deployment Commands (CI/CD)
 
 The production deployment is primarily automated via GitHub Actions (Project 3 & 4), but you may need to execute the Terraform commands manually to set up the infrastructure initially.
@@ -105,22 +116,37 @@ A. Infrastructure Setup (Terraform IaC)
 These commands provision your GKE Cluster and other cloud resources on GCP. These are run once (or whenever infrastructure changes).
 Command	Purpose
 1. Initialize	Downloads provider plugins and initializes the Terraform state. Run this first.
-terraform init IaC/terraform	
+
+        terraform init IaC/terraform	
+
 2. Plan Changes	Generates an execution plan, showing exactly what resources will be created/modified in GCP.
-terraform plan -var="gcp_project_id=YOUR_PROJECT_ID" IaC/terraform	
+
+        terraform plan -var="gcp_project_id=YOUR_PROJECT_ID" IaC/terraform	
+
 3. Apply Changes	Executes the plan, creating the GKE cluster, database, and necessary credentials.
-terraform apply -var="gcp_project_id=YOUR_PROJECT_ID" IaC/terraform	
+
+        terraform apply -var="gcp_project_id=YOUR_PROJECT_ID" IaC/terraform	
+
 4. Clean Up Infra	DELETES ALL PROVISIONED RESOURCES (GKE, DB, etc.). Use with extreme caution.
-terraform destroy -var="gcp_project_id=YOUR_PROJECT_ID" IaC/terraform	
+
+        terraform destroy -var="gcp_project_id=YOUR_PROJECT_ID" IaC/terraform	
+
 B. Automated Deployment (GitHub Actions)
 
 Once the infrastructure is set up, the application deployment is automated.
 Command	Purpose
 1. Trigger CI/CD	The primary deployment command. Pushing code triggers the entire automated pipeline (Build, Push to Artifact Registry, Deploy to GKE).
-git push origin main	
+
+        git push origin main	
+
 2. Manual Trigger	If your pipeline includes the workflow_dispatch trigger, this command can start the deployment without a code change.
-gh workflow run gcp-ci-cd.yml -f branch=main	
+
+        gh workflow run gcp-ci-cd.yml -f branch=main	
+
 3. Verify Deployment	Command to check the status of your rolling update deployment on the GKE cluster (run from a machine with kubectl configured).
-kubectl rollout status deployment/app-management-deployment	
+
+        kubectl rollout status deployment/app-management-deployment	
+
 4. Get Load Balancer IP	Command to retrieve the public IP address of your application once the service is running.
-kubectl get service app-management-service
+
+        kubectl get service app-management-service
