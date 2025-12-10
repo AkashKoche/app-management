@@ -117,7 +117,7 @@ These commands provision your GKE Cluster and other cloud resources on GCP. Thes
 Command	Purpose
 1. Initialize	Downloads provider plugins and initializes the Terraform state. Run this first.
 
-        terraform init IaC/terraform	
+        terraform init terraform	
 
 2. Plan Changes	Generates an execution plan, showing exactly what resources will be created/modified in GCP.
 
