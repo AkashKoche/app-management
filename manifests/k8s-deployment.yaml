@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-management-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-management
+  template:
+    metadata:
+      labels:
+        app: app-management
+    spec:
+      containers:
+      - name: app-management-system
+        image: YOUR_REGISTRY_PATH/app-management-system:latest
+        ports:
+        - containerPort: 3000
+        env:
+          - name: MONGO_URI
+            valueFrom:
+              secretKeyRef:
+                name: mongo-secret
+                key: MONGO_URI

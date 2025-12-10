@@ -1,0 +1,30 @@
+---
+- name: Deploy Application to GKE Cluster
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    gcp_project: "YOUR_GCP_PROJECT_ID"
+    gke_cluster: "{{terraform_output.gke_cluster_name.value }}"
+    gke_location: "{{ terraform_output.gke_cluster_location.value }}"
+
+  tasks:
+    - name: Autheticate and get GKE credentials
+      command: >
+        gcloud container clusters get-credentials {{
+ gke_cluster }}
+        --zone {{ gke.location}}
+          --project { {gcp_project }}
+      register: gke_auth_result
+      changed_when: gke_auth_resutls.rc != 0
+
+    - name: Apply Kubernetes Deployment Manifest
+      kubernetes.core.k8s:
+        state: present
+        src: k8s-deployment-yaml
+
+    - name: Apply_kubernetes Services Manifest
+      kubernetes.core.k8s:
+      state: present
+      src: k8s-service.yaml
